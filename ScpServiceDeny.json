@@ -1,0 +1,31 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ScpAllow",
+      "Effect": "Allow",
+      "Action": "*",
+      "Resource": "*"
+    },
+    {
+      "Sid": "ScpDeny",
+      "Effect": "Deny",
+      "NotAction": [
+        "iam:*",
+        "aws-portal:*",
+        "budgets:*",
+        "cloudtrail:*",
+        "cloudwatch:*",
+        "cur:*",
+        "ce:*",
+        "health:*",
+        "resource-groups:*",
+        "tag:*",
+        "s3:*",
+        "sns:*",
+        "support:*",
+        "organizations:*"
+      ],
+      "Resource": "*"
+    }
+  }
