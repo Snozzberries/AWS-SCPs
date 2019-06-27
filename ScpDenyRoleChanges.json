@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ScpPreventAdminRoleChanges",
+      "Effect": "Deny",
+      "Action": "iam:*",
+      "Resource": "arn:aws:iam::*:role/ROLE-OrgAdministrator",
+      "Condition": {
+        "StringNotLike": {
+          "aws:PrincipalARN": "arn:aws:iam::*:role/ROLE-OrgAdministrator"
+        },
+        "NumericGreaterThanIfExists": {
+          "aws:MultiFactorAuthAge": "3600"
+        }
+      }
+    }
+  ]
+}
