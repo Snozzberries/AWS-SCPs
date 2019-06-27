@@ -2,6 +2,8 @@ A collection of AWS Service Control Policies (SCP) with the intent of enforcing 
 
 Preference towards white listing specific actions, services, or conditions is in place to ensure forward compatability as new actions, regions, or other services are created in the future.
 
-ScpServiceDeny - Deny any service not explicitly listed in NotAction.
+ScpDenyService - Deny any service not explicitly listed in NotAction.
 
-ScpRegionDeny - Deny API calls to any region not explicitly listed in "aws:RequestedRegion" values. US-East-1 is the Global API endpoint, meaning it should always be allowed.
+ScpDenyRegion - Deny API calls to any region not explicitly listed in "aws:RequestedRegion" values. US-East-1 is the Global API endpoint, meaning it should always be allowed.
+
+ScpDenyRoleChanges - Deny any changes to IAM roles unless you are a member of the Organization's master role with an MFA token issued in the past hour. Where "Role-OrgAdministrator" is the cross account role used for break-glass scenarios from the Organization Master account. The role name should remain consistent between member accounts for the wildcard in the ARN to work.
