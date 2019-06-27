@@ -2,7 +2,7 @@
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "ScpPreventAdminRoleChanges",
+      "Sid": "ScpDenyRoleChanges",
       "Effect": "Deny",
       "Action": "iam:*",
       "Resource": "arn:aws:iam::*:role/ROLE-OrgAdministrator",
