@@ -5,7 +5,7 @@
       "Sid": "ScpDenyRoleChanges",
       "Effect": "Deny",
       "Action": "iam:*",
-      "Resource": "arn:aws:iam::*:role/ROLE-OrgAdministrator",
+      "Resource": "arn:aws:iam::*:role/Role-OrgAdministrator",
       "Condition": {
         "StringNotLike": {
           "aws:PrincipalARN": "arn:aws:iam::*:role/ROLE-OrgAdministrator"
