@@ -8,7 +8,7 @@
       "Resource": "*"
     },
     {
-      "Sid": "ScpDeny",
+      "Sid": "ScpDenyService",
       "Effect": "Deny",
       "NotAction": [
         "iam:*",
