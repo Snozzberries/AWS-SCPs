@@ -1,0 +1,136 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ScpAllow",
+      "Effect": "Allow",
+      "Action": "*",
+      "Resource": "*"
+    },
+    {
+      "Sid": "ScpDeny",
+      "Effect": "Deny",
+      "NotAction": [
+        "iam:*",
+        "aws-portal:*",
+        "budgets:*",
+        "cloudtrail:*",
+        "cloudwatch:*",
+        "cur:*",
+        "ce:*",
+        "health:*",
+        "resource-groups:*",
+        "s3:*",
+        "sns:*",
+        "support:*",
+        "ec2:*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ScpRestrictRegion",
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {
+          "aws:RequestedRegion": [
+            "us-east-1"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "ScpPreventAdminRoleChanges",
+      "Effect": "Deny",
+      "Action": "iam:*",
+      "Resource": "arn:aws:iam::*:role/ROLE-OrgAdministrator",
+      "Condition": {
+        "StringNotLike": {
+          "aws:PrincipalARN": "arn:aws:iam::*:role/ROLE-OrgAdministrator"
+        },
+        "NumericGreaterThanIfExists": {
+          "aws:MultiFactorAuthAge": "3600"
+        }
+      }
+    },
+    {
+      "Sid": "ScpCloudTrail",
+      "Effect": "Deny",
+      "NotAction": [
+        "cloudtrail:AddTags",
+        "cloudtrail:CreateTrail",
+        "cloudtrail:DescribeTrail",
+        "cloudtrail:GetEventSelectors",
+        "cloudtrail:GetTrailStatus",
+        "cloudtrail:ListPublicKeys",
+        "cloudtrail:ListTags",
+        "cloudtrail:LookupEvents",
+        "cloudtrail:StartLogging"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringNotLike": {
+          "aws:PrincipalARN": "arn:aws:iam::*:role/ROLE-OrgAdministrator"
+        },
+        "NumericGreaterThanIfExists": {
+          "aws:MultiFactorAuthAge": "3600"
+        }
+      }
+    },
+    {
+      "Sid": "ScpConfig",
+      "Effect": "Deny",
+      "Action": [
+        "config:DeleteConfigRule",
+        "config:DeleteConfigurationRecorder",
+        "config:DeleteDeliveryChannel",
+        "config:StopConfigurationRecorder"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringNotLike": {
+          "aws:PrincipalARN": "arn:aws:iam::*:role/ROLE-OrgAdministrator"
+        },
+        "NumericGreaterThanIfExists": {
+          "aws:MultiFactorAuthAge": "3600"
+        }
+      }
+    },
+    {
+      "Sid": "ScpEc2",
+      "Effect": "Deny",
+      "Action": [
+        "ec2:AttachInternetGateway",
+        "ec2:CreateInternetGateway",
+        "ec2:AttachEgressOnlyInternetGateway",
+        "ec2:CreateVpcPeeringConnection",
+        "ec2:AcceptVpcPeeringConnection",
+        "ec2:DeleteFlowLogs"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringNotLike": {
+          "aws:PrincipalARN": "arn:aws:iam::*:role/ROLE-OrgAdministrator"
+        },
+        "NumericGreaterThanIfExists": {
+          "aws:MultiFactorAuthAge": "3600"
+        }
+      }
+    },
+    {
+      "Sid": "ScpKms",
+      "Effect": "Deny",
+      "Action": "kms:*",
+      "Resource": "*",
+      "Condition": {
+        "StringNotLike": {
+          "aws:PrincipalARN": "arn:aws:iam::*:role/ROLE-OrgAdministrator"
+        },
+        "NumericGreaterThanIfExists": {
+          "aws:MultiFactorAuthAge": "3600"
+        }
+      }
+    }
+  ]
+}
